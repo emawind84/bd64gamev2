@@ -1,5 +1,5 @@
 
-actor 64PainElemental : PainElemental Replaces PainElemental
+actor 64PainElemental : PainElemental //Replaces PainElemental
 {
 	DamageFactor "CauseWaterSplash", 0.0  DamageFactor "CauseObjectsToSplash", 0.0
   hitobituary "%o got too close to a Pain Elemental."

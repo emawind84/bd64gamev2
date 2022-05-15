@@ -1,4 +1,4 @@
-actor 64HellHound : Demon Replaces ArchVile
+actor 64HellHound : Demon //Replaces ArchVile
 {
 	+FLOORCLIP	
 	+FORCEXYBILLBOARD

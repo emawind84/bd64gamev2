@@ -1,5 +1,5 @@
 
-Actor 64Revenant : Revenant Replaces Revenant 
+Actor 64Revenant : Revenant //Replaces Revenant 
 {
 	+FLOORCLIP	
 	+FORCEXYBILLBOARD

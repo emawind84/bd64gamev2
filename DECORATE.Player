@@ -200,62 +200,62 @@ Stop
  }
 }
 
-actor 64ScriptedMarine : ScriptedMarine Replaces ScriptedMarine
+actor 64ScriptedMarine : ScriptedMarine //Replaces ScriptedMarine
 {
 //	scale 0.75
 }
 
-actor 64MarineBFG : MarineBFG Replaces MarineBFG
+actor 64MarineBFG : MarineBFG //Replaces MarineBFG
 {
 //	scale 0.75
 }
 
-actor 64MarineBerserk : MarineBerserk Replaces MarineBerserk
+actor 64MarineBerserk : MarineBerserk //Replaces MarineBerserk
 {
 //	scale 0.75
 }
 
-actor 64MarineChaingun : MarineChaingun Replaces MarineChaingun
+actor 64MarineChaingun : MarineChaingun //Replaces MarineChaingun
 {
 //	scale 0.75
 }
 
-actor 64MarineChainsaw : MarineChainsaw Replaces MarineChainsaw
+actor 64MarineChainsaw : MarineChainsaw //Replaces MarineChainsaw
 {
 //	scale 0.75
 }
 
-actor 64MarineFist : MarineFist Replaces MarineFist
+actor 64MarineFist : MarineFist //Replaces MarineFist
 {
 //	scale 0.75
 }
 
-actor 64MarinePistol : MarinePistol Replaces MarinePistol
+actor 64MarinePistol : MarinePistol //Replaces MarinePistol
 {
 //	scale 0.75
 }
 
-actor 64MarinePlasma : MarinePlasma Replaces MarinePlasma
+actor 64MarinePlasma : MarinePlasma //Replaces MarinePlasma
 {
 //	scale 0.75
 }
 
-actor 64MarineRailgun : MarineRailgun Replaces MarineRailgun
+actor 64MarineRailgun : MarineRailgun //Replaces MarineRailgun
 {
 //	scale 0.75
 }
 
-actor 64MarineRocket : MarineRocket Replaces MarineRocket
+actor 64MarineRocket : MarineRocket //Replaces MarineRocket
 {
 //	scale 0.75
 }
 
-actor 64MarineSSG : MarineSSG Replaces MarineSSG
+actor 64MarineSSG : MarineSSG //Replaces MarineSSG
 {
 //	scale 0.75
 }
 
-actor 64MarineShotgun : MarineShotgun Replaces MarineShotgun
+actor 64MarineShotgun : MarineShotgun //Replaces MarineShotgun
 {
 //	scale 0.75
 }

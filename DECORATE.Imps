@@ -1,7 +1,7 @@
 
 
 
-actor 64DoomImp : DoomImp Replaces DoomImp
+actor 64DoomImp : DoomImp //Replaces DoomImp
 {
 	 +FLOORCLIP
 	 +FORCEXYBILLBOARD
@@ -255,7 +255,7 @@ ACTOR 64ImpBall Replaces DoomImpBall
 
 
 
-actor 64StealthDoomImp : 64DoomImp Replaces StealthDoomImp
+actor 64StealthDoomImp : 64DoomImp //Replaces StealthDoomImp
 {
 +STEALTH
 }

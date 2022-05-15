@@ -1,5 +1,5 @@
 
-actor 64Arachnotron : Arachnotron Replaces Arachnotron
+actor 64Arachnotron : Arachnotron //Replaces Arachnotron
 {
 	+FLOORCLIP	
 	+FORCEXYBILLBOARD
@@ -111,7 +111,7 @@ actor 64Arachnotron : Arachnotron Replaces Arachnotron
 }
 
 
-actor 64StealthArachnotron : 64Arachnotron Replaces StealthArachnotron
+actor 64StealthArachnotron : 64Arachnotron //Replaces StealthArachnotron
 {
 +STEALTH
 }

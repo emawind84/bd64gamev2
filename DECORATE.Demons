@@ -1,4 +1,4 @@
-actor 64Demon : Demon Replaces Demon
+actor 64Demon : Demon //Replaces Demon
 {
 	+FLOORCLIP	
 	+FORCEXYBILLBOARD
@@ -203,12 +203,12 @@ actor 64Demon : Demon Replaces Demon
 	}
 }
 
-actor 64StealthDemon : 64Demon Replaces StealthDemon
+actor 64StealthDemon : 64Demon //Replaces StealthDemon
 {
 	+STEALTH
 }
 
-actor 64Spectre : 64Demon Replaces Spectre
+actor 64Spectre : 64Demon //Replaces Spectre
 {
   Renderstyle Translucent
   Alpha 0.5

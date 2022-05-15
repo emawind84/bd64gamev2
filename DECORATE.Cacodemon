@@ -1,5 +1,5 @@
 
-actor 64Cacodemon : Cacodemon Replaces Cacodemon
+actor 64Cacodemon : Cacodemon //Replaces Cacodemon
 {
 	+FLOORCLIP	
 	+FORCEXYBILLBOARD

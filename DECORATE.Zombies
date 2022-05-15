@@ -1,5 +1,5 @@
 
-actor 64ZombieMan : ZombieMan Replaces ZombieMan
+actor 64ZombieMan : ZombieMan //Replaces ZombieMan
 {
   +FLOORCLIP
   +FORCEXYBILLBOARD
@@ -337,12 +337,12 @@ actor BrutalizedZombiemanPart2 : BrutalizedZombiemanPart1
    }
 }
 
-actor 64StealthZombieMan : 64Zombieman Replaces StealthZombieMan
+actor 64StealthZombieMan : 64Zombieman //Replaces StealthZombieMan
 {
   +STEALTH
 }
 
-actor 64ShotgunGuy : 64Zombieman Replaces ShotgunGuy
+actor 64ShotgunGuy : 64Zombieman //Replaces ShotgunGuy
 {
   speed 6
   GibHealth 15
@@ -398,7 +398,7 @@ actor 64ShotgunGuy : 64Zombieman Replaces ShotgunGuy
   }
 }
 
-actor 64StealthShotgunGuy : 64ShotgunGuy Replaces StealthShotgunGuy
+actor 64StealthShotgunGuy : 64ShotgunGuy //Replaces StealthShotgunGuy
 {
   +STEALTH
 }
@@ -514,7 +514,7 @@ actor 64ChaingunGuy : 64Zombieman
 	}
 }
 
-actor 64StealthChaingunguy : 64Chaingunguy replaces stealthchaingunguy
+actor 64StealthChaingunguy : 64Chaingunguy //replaces stealthchaingunguy
 {
 	renderstyle translucent
 	+STEALTH
@@ -561,7 +561,7 @@ ACTOR EnemyProjectile: FastProjectile
 
 
 
-actor 64Zombiemarine : 64Zombieman Replaces WolfensteinSS
+actor 64Zombiemarine : 64Zombieman //Replaces WolfensteinSS
 {
 	attacksound "grunt/attack"
 	DropItem "RifleSpawner"
@@ -798,7 +798,7 @@ actor 64Zombiemarine : 64Zombieman Replaces WolfensteinSS
 }
 
 
-actor D64ChaingunnerReplacer : RandomSpawner Replaces Chaingunguy
+actor D64ChaingunnerReplacer : RandomSpawner //Replaces Chaingunguy
 {
     DropItem "64ZombieMarine"
 	DropItem "64ZombieMarine"

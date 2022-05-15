@@ -1,6 +1,6 @@
 
 
-actor 64LostSoul : LostSoul Replaces LostSoul
+actor 64LostSoul : LostSoul //Replaces LostSoul
 {
   scale 0.8
   health 50

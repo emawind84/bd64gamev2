@@ -1,5 +1,5 @@
 
-actor 64Fatso : Fatso Replaces Fatso
+actor 64Fatso : Fatso //Replaces Fatso
 {
 	+FLOORCLIP	
 	+DONTHURTSPECIES

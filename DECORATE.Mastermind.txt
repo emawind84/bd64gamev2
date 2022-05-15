@@ -1,6 +1,6 @@
 
 
-actor 64SpiderMastermind : SpiderMastermind Replaces SpiderMastermind
+actor 64SpiderMastermind : SpiderMastermind //Replaces SpiderMastermind
 {
   AttackSound "weapons/pistol"
   Scale 1.5

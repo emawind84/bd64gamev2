@@ -1,6 +1,6 @@
 
 
-actor 64BaronOfHell : BaronOfHell Replaces BaronOfHell
+actor 64BaronOfHell : BaronOfHell //Replaces BaronOfHell
 {
   missiletype BaronBall2
 //  bloodcolor "8C 39 10"

@@ -1,4 +1,4 @@
-actor 64HellKnight Replaces HellKnight
+actor 64HellKnight //Replaces HellKnight
 {
 	+FLOORCLIP	
 	DamageFactor "CauseWaterSplash", 0.0  DamageFactor "CauseObjectsToSplash", 0.0

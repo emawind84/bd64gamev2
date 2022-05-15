@@ -1,4 +1,4 @@
-actor 64DeadCacodemon : DeadCacodemon Replaces DeadCacodemon
+actor 64DeadCacodemon : DeadCacodemon //Replaces DeadCacodemon
 {
   scale 0.75
   states
@@ -9,12 +9,12 @@ actor 64DeadCacodemon : DeadCacodemon Replaces DeadCacodemon
   }
 }
 
-actor 64DeadDemon : DeadDemon Replaces DeadDemon
+actor 64DeadDemon : DeadDemon //Replaces DeadDemon
 {
   scale 0.75
 }
 
-actor 64DeadDoomImp : DeadDoomImp Replaces DeadDoomImp
+actor 64DeadDoomImp : DeadDoomImp //Replaces DeadDoomImp
 {
   scale 0.75
   states
@@ -25,12 +25,12 @@ actor 64DeadDoomImp : DeadDoomImp Replaces DeadDoomImp
   }
 }
 
-actor 64DeadShotgunGuy : DeadShotgunGuy Replaces DeadShotgunGuy
+actor 64DeadShotgunGuy : DeadShotgunGuy //Replaces DeadShotgunGuy
 {
   scale 0.75
 }
 
-actor 64DeadZombieMan : DeadZombieMan Replaces DeadZombieMan
+actor 64DeadZombieMan : DeadZombieMan //Replaces DeadZombieMan
 {
   scale 0.75
 }
