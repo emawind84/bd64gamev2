@@ -1527,20 +1527,6 @@ object 64LostSoul
     frame SKULO { light LOSTSOUL_X8 }
 }
 
-// Mancubus Fireball
-object 64FatShot
-{
-    frame MANFA { light IMPBALL   }
-    frame MANFB { light IMPBALL   }
-    frame MANFC { light IMPBALL   }
-
-    frame MANFD { light ROCKET_X1 }
-    frame MANFE { light ROCKET_X2 }
-    frame MANFF { light ROCKET_X3 }
-    frame MANFG { light ROCKET_X4 }
-    frame MANFH { light ROCKET_X5 }
-}
-
 // Arachnotron Fireball
 pointlight ARACHPLAS
 {
