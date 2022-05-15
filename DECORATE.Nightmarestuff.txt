@@ -1,0 +1,58 @@
+actor NightmareCacodemon : Cacodemon
+{
+  //$Category Monsters
+  renderstyle translucent
+  Species "NightmareCacodemon"
+  alpha 0.6
+  obituary "%o was scorched by a Nightmare Cacodemon."
+  hitobituary "%o was chomped by a Nightmare Cacodemon."
+//  bloodcolor "C5 00 28"
+  health 700
+  speed 15
+  scale 0.75
+  painchance 96
+  
+  states
+  {
+  Spawn:
+    HEA2 ABCD 15 A_Look
+    loop
+  See:
+    HEA2 AABBCCDD 3 A_Chase
+    loop
+  Pain:
+    HEA2 D 3
+    HEA2 D 3 A_Pain
+    goto See
+  Melee:
+  Missile:
+    HEA2 EF 4 A_FaceTarget
+    HEA2 G 4 bright A_BasicAttack (8, "none", "NCacoBall", 28)
+    HEA2 EF 4 A_FaceTarget
+    HEA2 G 4 bright A_BasicAttack (8, "none", "NCacoBall", 28)
+    HEA2 EF 4 A_FaceTarget
+    HEA2 G 4 bright A_BasicAttack (8, "none", "NCacoBall", 28)
+    goto See
+  Death:
+    HEA2 H 8
+    HEA2 I 8 A_Scream
+    HEA2 JK 8
+    HEA2 L 8 A_NoBlocking
+    HEA2 M -1 A_SetFloorClip
+    stop
+  Raise:
+    HEA2 M 8 A_UnSetFloorClip
+    HEA2 LKJIH 8
+    goto See
+  Crush:
+    POL5 A 0
+    POL5 A 0 A_PlaySound ("Misc/Gibbed")
+    POL5 A -1
+    Stop
+//  Crush:
+//    A039 A 0
+//    A039 A 0 A_PlaySound ("Misc/Gibbed")
+//    A039 A -1
+//    Stop
+  }
+}

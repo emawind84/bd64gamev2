@@ -1,0 +1,26 @@
+ClearPlayerClasses
+AddPlayerClass 64DoomPlayer
+AddPlayerClass Tactical64DoomPlayer
+
+WeaponSection 64WeaponSection
+
+SetSlot 1 64Fist 64Chainsaw
+SetSlot 2 64Pistol 64RifleTactical
+SetSlot 3 64Shotgun 64ShotgunTACTICAL 64SuperShotgun
+SetSlot 4 64Rifle 64Chaingun 64ChaingunTactical
+SetSlot 5 64RocketLauncher  64RocketLauncherDM 64RocketLauncherTACTICAL 
+SetSlot 6 64PlasmaRifle 64PlasmaRifleDM 64PlasmaRifleTACTICAL
+SetSlot 7 64BFG9000
+SetSlot 8 Unmaker
+SetSlot 9 Lasergun
+
+
+   addkeysection "Brutal Doom 64" BrutalDoomInteractions               // here too
+
+   addmenukey "Kick" kickem
+   alias kickem "puke 301"
+   defaultbind Q kickem
+
+   addmenukey "Reload" reloader
+   alias reloader "puke 303"
+   defaultbind R reloader

@@ -1,0 +1,94 @@
+
+
+actor 64LostSoul : LostSoul Replaces LostSoul
+{
+  scale 0.8
+  health 50
+  renderstyle Normal
+  Alpha 0.99
+  +NOBLOCKMONST
+  +NOBLOOD
+  +FORCEXYBILLBOARD
+  Painchance "SuperFists", 200
+  Painchance "Kick", 255
+  Painchance "SuperKick", 255
+  DamageFactor "CauseWaterSplash", 0.0  DamageFactor "CauseObjectsToSplash", 0.0
+  states
+  {
+  Spawn:
+    SKUL ABC 1 A_Look
+    loop
+  See:
+    SKUL A 1 BRIGHT A_Chase
+	SKUL A 1 BRIGHT A_SpawnItemEx("YellowFlare", 0, 0, 30)
+	SKUL B 1 BRIGHT A_Chase("","")
+	SKUL B 1 BRIGHT A_SpawnItemEx("YellowFlare", 0, 0, 30)
+	SKUL B 1 BRIGHT A_Chase
+	SKUL C 1 BRIGHT A_SpawnItemEx("YellowFlare", 0, 0, 30)
+    TNT1 A 0 A_JumpIfInTargetInventory("PowerInvisibility", 1, "Forget")
+	Loop
+	
+	Forget:
+    TNT1 A 0
+    TNT1 A 0 A_ClearTarget
+	Goto Spawn
+	
+  Missile:
+    SKUL D 2 BRIGHT A_FaceTarget
+	SKUL E 2 BRIGHT A_SpawnItemEx("YellowFlare", 0, 0, 30)
+	SKUL D 2 BRIGHT A_FaceTarget
+	SKUL E 2 BRIGHT A_SpawnItemEx("YellowFlare", 0, 0, 30)
+	SKUL D 2 BRIGHT A_FaceTarget
+	SKUL E 2 BRIGHT A_SpawnItemEx("YellowFlare", 0, 0, 30)
+	SKUL D 2 BRIGHT A_FaceTarget
+	SKUL E 2 BRIGHT A_SpawnItemEx("YellowFlare", 0, 0, 30)
+    SKUL E 1 BRIGHT A_SkullAttack (30)
+	tnt1 AAAAA 0
+	SKUL EE 1 BRIGHT A_SpawnItemEx ("LostSoulTrail", 0, 0, 30)
+    SKUL D 2 BRIGHT A_SpawnItemEx("YellowFlare", 0, 0, 30)
+    goto Missile+10
+  Pain:
+    SKUL FF 2 A_SpawnItemEx("YellowFlare", 0, 0, 30)
+    SKUL F 1 A_Pain
+    goto See
+	
+  Death:
+    SKUL G 0 bright
+    SKUL G 2 bright
+	TNT1 A 0 A_PlaySound("LSOD", 1)
+		TNT1 AAAAAAAAA 0 A_CustomMissile ("ExplosionParticleHeavy", 30, 0, random (0, 360), 2, random (0, 180))
+        TNT1 AAAAAA 0 A_CustomMissile ("BarrelExplosionFire", 30, 0, random (0, 360), 2, random (0, 360))
+		TNT1 AAAAAAAAA 0 A_CustomMissile ("ExplosionParticleVeryFast", 30, 0, random (0, 360), 2, random (0, 360))
+        TNT1 AAAAAAAAAA 0 A_CustomMissile ("64ExplosionFireBase", 30, 0, random (0, 360), 2, random (0, 360))
+        EXPL AAAAA 0 A_CustomMissile ("ExplosionSmokeFast22", 30, 0, random (0, 360), 2, random (0, 360))
+    SKUL H 4 bright A_Scream
+    SKUL I 4 bright
+    SKUL J 4 A_NoBlocking
+    SKUL KLMNOP 4 A_FadeOut (0.1667)
+    stop
+ 
+  Crush:
+    POL5 A 0
+    POL5 A 0 A_PlaySound ("Misc/Gibbed")
+    POL5 A -1
+    Stop
+  }
+}
+
+
+actor LostSoulTrail
+{
++FORCEXYBILLBOARD
++NOINTERACTION
++CLIENTSIDEONLY
+Renderstyle Add
+Alpha 0.9
+scale 1.0
+States
+	{
+		Spawn:
+			TNT1 A 1
+			MTB2 ABCABC 1 BRIGHT
+			Stop
+	}
+}

@@ -1,0 +1,68 @@
+clearskills
+
+Skill Baby
+{
+	SpawnFilter = Easy
+	Name = "I am a wimp."
+	AmmoFactor = 2.0
+	EasyBossBrain
+	mustconfirm = "Are you kidding me? This is barely a challenge. Press Y or N"
+}
+
+Skill Easy
+{
+	SpawnFilter = Easy
+	Name = "Be Gentle!"
+	Key = "n"
+	EasyBossBrain
+	mustconfirm = "Only half as many enemies. Don't complain if you find it boring. Press Y or N"
+}
+
+Skill Normal
+{
+	SpawnFilter = Normal
+	Name = "Bring it on!"
+	defaultskill
+}
+
+Skill Hard
+{
+	SpawnFilter = Hard
+	Name = "Watch me die!"
+	mustconfirm = "This is not how you remember the original game. Oposition will be much larger than you initialy believe. Press Y or N"
+}
+
+
+Skill Nightmare
+{
+	SpawnFilter = Hard
+	DamageFactor = 2.0
+	MonsterHealth = 0.75
+	FastMonsters 1
+	disablecheats
+	Name = "Hardcore!"
+	mustconfirm = "Faster monsters, you take double damage, enemies takes 25% more damage. Equivalent of regular Brutal Doom's 'Black Metal' difficulty. Only for hardcore players. Press Y or N"
+}
+
+
+Skill Survival1
+{
+	SpawnFilter = Normal
+	Name = "Survival Horror (Easier)"
+	mustconfirm = "You take double damage, there is only half as much ammo, enemies respawn in 35 secs. Press Y or N"
+	DamageFactor = 2.0
+	respawntime = 35
+	disablecheats
+}
+
+
+Skill Survival2
+{
+	SpawnFilter = Hard
+	Name = "Survival Horror (Harder)"
+	mustconfirm = "Same as regular Survival Horror, but with more enemies. Press Y or N"
+	DamageFactor = 2.0
+	respawntime = 35
+	disablecheats
+}
+

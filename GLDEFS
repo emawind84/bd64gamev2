@@ -1,0 +1,248 @@
+pulselight SMALLREDTORCH
+{
+    color 1.0 0.3 0.0
+    size 64
+    secondarySize 72
+    interval 0.1
+    offset 0 35 0
+}
+
+pulselight BIGREDTORCH
+{
+    color 1.0 0.3 0.0
+    size 110
+    secondarySize 120
+    interval 0.1
+    offset 0 80 0
+}
+
+
+
+pulselight SMALLBLUETORCH
+{
+    color 0.0 0.3 1.0
+    size 64
+    secondarySize 72
+    interval 0.1
+    offset 0 35 0
+}
+
+
+POINTlight plasmaprojectile
+{
+    color 0.3 0.3 1.0
+    size 42
+    offset 0 0 0
+}
+
+
+
+pulselight BIGBLUETORCH
+{
+    color 0.0 0.3 1.0
+    size 110
+    secondarySize 120
+    interval 0.1
+    offset 0 80 0
+}
+
+
+pulselight BIGGREENTORCH
+{
+    color 0.2 1.0 0.0
+    size 110
+    secondarySize 120
+    interval 0.1
+    offset 0 80 0
+}
+
+pointlight LampBasic
+{
+    color 1.0 0.6 0.0
+    size 64
+    offset 0 0 0
+}
+
+pointlight LampWhite
+{
+    color 0.4 0.4 0.4
+    size 64
+    offset 0 0 0
+}
+
+
+pointlight BIGREDLIGHTPOINT
+{
+    color 1.0 0.8 0.4
+    size 96
+    offset 0 0 0
+}
+
+
+pointlight ShaftLight
+{
+    color 0.4 0.4 0.4
+    size 96
+    offset 0 0 0
+	dontlightself 1
+}
+
+
+pointlight ShaftLightMinor
+{
+    color 0.4 0.4 0.4
+    size 16
+    offset 0 0 0
+	dontlightself 1
+}
+
+
+
+object 64Candlestick
+{
+frame CAND { light SMALLREDTORCH }
+}
+
+object 64Candelabra
+{
+frame CAND { light BIGREDTORCH }
+}
+
+
+
+
+object 64RedTorch
+{
+frame TSTI { light BIGREDTORCH }
+}
+
+object GroundFire
+{
+frame TNT1 { light BIGREDTORCH }
+}
+
+object 64GreenTorch
+{
+frame TSTI { light BIGGREENTORCH }
+}
+
+
+object 64BlueTorch
+{
+frame TSTI { light BIGBLUETORCH }
+}
+
+
+object 64RedTorchSmall
+{
+frame SSTI { light SMALLREDTORCH }
+}
+
+
+object 64ShortGreenTorch
+{
+frame SSTI { light SMALLGREENTORCH }
+}
+
+
+object 64BlueTorchSmall
+{
+frame SSTI { light BIGBLUETORCH }
+}
+
+object IntroMArine
+{
+frame PL7YF { light BIGREDLIGHTPOINT }
+}
+
+
+
+
+object HangingTechLampb
+{
+frame HGLM { light LampWhite }
+}
+
+object LampFlareSpawn1
+{
+frame NULL { light ShaftLightMinor }
+}
+
+
+object BasicWhiteDynamicLight
+{
+frame TNT1 { light LampBasic }
+}
+
+object LightShaft1
+{
+frame SHF1 { light ShaftLight }
+frame SHF2 { light ShaftLight }
+frame SHF3 { light ShaftLight }
+frame SHF4 { light ShaftLight }
+frame SHF5 { light ShaftLight }
+}
+
+
+object 64PlasmaBall
+{
+frame LENS { light PlasmaProjectile }
+frame LENZ { light PlasmaProjectile }
+}
+
+
+object 64ArachnotronPlasma
+{
+frame LENS { light PlasmaProjectile }
+frame LENZ { light PlasmaProjectile }
+}
+
+
+pulselight BIGREDLASER
+{
+    color 1.0 0.0 0.0
+    size 60
+    secondarySize 40
+    interval 0.1
+    offset 0 0 0
+}
+
+
+
+
+object AlphaLZRGkerLaser
+{
+frame TNT1 { light BIGREDLASER }
+frame TNT1 { light BIGREDLASER }
+}
+
+
+pointlight HUEHUE
+{
+    color 0.5 0.4 0
+    size 48
+}
+
+pointlight HUEHUEHUEHUE
+{
+    color 0.5 0.4 0
+    size 62
+}
+
+
+
+object PlayerMuzzle1
+{
+    frame PLMZ { light HUEHUE }
+}
+
+object PlayerMuzzle2
+{
+    frame PLMZ { light HUEHUEHUEHUE }
+}
+
+
+object MarineMuzzle1
+{
+    frame PLMZ { light HUEHUE }
+}

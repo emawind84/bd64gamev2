@@ -1,0 +1,202 @@
+ACTOR PlasmaRifleAmmo : Ammo
+{
+   Inventory.Amount 0
+   Inventory.MaxAmount 30
+   Ammo.BackpackAmount 0
+   Ammo.BackpackMaxAmount 30
+   Inventory.Icon "RIFLA0"
+}
+
+
+Actor 64PlasmaRifleTACTICAL : DoomWeapon
+{
+	Weapon.SelectionOrder 1
+	Weapon.AmmoUse1 0
+	Weapon.AmmoGive1 0
+	Weapon.AmmoType1 "Cell"
+	Weapon.AmmoUse2 0
+	Weapon.AmmoGive2 0
+	Weapon.AmmoType2 "PlasmaRifleAmmo"
+	Inventory.PickupMessage "$GOTPLASMA"
+	+WEAPON.CHEATNOTWEAPON
+	Tag "$TAG_PLASMARIFLE"
+	Scale 0.82
+	States
+	{
+	Select:
+		TNT1 AAAAA 1 A_Raise
+		TNT1 AAAAAAAAAA 0 A_Raise
+		Goto SelectAnimation
+
+	SelectAnimation:
+	    TNT1 A 1
+	    TNT1 A 0 A_JumpIfInventory("IsTacticalClass", 1, 1)
+		Goto ReplaceTactical
+		PLSG JKLM 1
+		TNT1 A 0 A_giveInventory("HasPLasmaWeapon", 1)
+		Goto Ready
+		
+	ReplaceTactical:
+    PLSG J 1
+    TNT1 A 0 A_GiveInventory("64PlasmaRifle", 1)
+	TNT1 A 0 A_TakeInventory("64PlasmaRifleTactical", 1)
+    Goto Ready			
+	
+	Deselect:
+		PLSG MLKJ 1
+		TNT1 A 0 A_TakeInventory("HasPLasmaWeapon", 1)
+		PLSG A 0 A_StopSoundEx ("WEAPON")
+		TNT1 AAAAAAAAAA 0 A_Lower
+		TNT1 A 1 A_Lower
+		Wait
+	
+	Ready: 
+		PLSG A 0 A_PlaySoundEx ("weapon/plasmaidle","WEAPON",1)
+		TNT1 A 0 A_JumpIfInventory("PlasmaRIfleAmmo",1,1)
+		Goto NoAmmo
+	  	PLSG AB 2 A_WeaponReady
+		TNT1 A 0 A_JumpIfInventory("Kicking",1,"DoKick")
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		PLSG C 2 A_WeaponReady
+		loop
+		
+	NoAmmo: 
+		PLSF D 5 A_WeaponReady(WRF_NOFIRE)
+		PLSF D 5 A_WeaponReady//(WRF_NOBOB)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		TNT1 A 0 A_JumpIfInventory("Kicking",1,"DoKick")
+		TNT1 A 0 A_JumpIfInventory("PlasmaRIfleAmmo",1,"Ready")
+		loop	
+		
+	Fire:
+	    TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("PlasmaRifleAmmo", 1, 1)
+		Goto Reload
+		TNT1 A 0
+		PLSF A 1 BRIGHT A_FireCustomMissile("64PlasmaBall", 0, 1)
+		TNT1 A 0 A_SetPitch (pitch-1.6)
+		PLSF BCD 1 A_SetPitch (pitch+0.3)
+		TNT1 A 0 A_TakeInventory("PlasmaRifleAmmo", 1)
+		PLSG A 0 A_SetAngle(angle + random (-1, 1))
+		PLSG B 0 A_ReFire
+		Goto Ready
+	Spawn:
+		PLAS A -1
+		Stop	
+		
+		
+		
+	Reload:
+		PLSG A 1 A_WeaponReady
+		TNT1 A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_Takeinventory("Reloading",1)
+		TNT1 A 0 A_Takeinventory("ADSmode",1)
+		TNT1 A 0 A_Takeinventory("Zoomed",1)
+		TNT1 A 0 A_JumpIfInventory("PlasmaRifleAmmo",30,64)
+        TNT1 A 0 A_JumpIfInventory("Cell",1,3)
+        Goto NoAmmo
+        TNT1 AAA 0
+		TNT1 A 0 A_Takeinventory("Zoomed",1)
+        TNT1 A 0 A_PlaySound("Reload")
+		TNT1 A 0 A_GiveInventory ("Pumping", 1)
+		TNT1 A 0 A_Takeinventory("Reloading",1)
+		TNT1 A 0
+        PLSR ABCDEE 1  A_JumpIfInventory("Kicking",1,"DoKick")
+		TNT1 A 0 A_JumpIfInventory("HasUnloaded", 1, 2)
+        PLSR EEEEEEEE 1 A_JumpIfInventory("Kicking",1,"DoKick")
+		PLSR FGFEEEEEEE 1
+		PLSR DCBA 1 A_JumpIfInventory("Kicking",1,"DoKick")
+		TNT1 A 0 A_Takeinventory("HasUnloaded",1)
+		
+	InsertBullets:
+		TNT1 AAAA 0
+		TNT1 A 0 A_JumpIfInventory("PlasmaRifleAmmo",30,15)
+		TNT1 A 0 A_JumpIfInventory("Cell",1,3)
+		Goto Ready+6
+        TNT1 AAAAAA 0
+		TNT1 A 0 A_Giveinventory("PlasmaRifleAmmo",1)
+		TNT1 A 0 A_Takeinventory("Cell",1)
+		Goto InsertBullets
+		
+		TNT1 AAAAAAAAAA 0
+		TNT1 A 0 A_Takeinventory("Reloading",1)
+		
+		TNT1 A 0 A_Refire
+        Goto Ready+6
+		TNT1 AAAA 0
+		TNT1 A 0 A_Takeinventory("Reloading",1)
+		
+		TNT1 A 0 A_Refire
+        Goto Ready+6
+		
+		
+	DoKick:
+	    TNT1 A 0
+		KICK A 0 A_Takeinventory("Kicking",1)
+		TNT1 A 0 A_jumpifinventory("Stamina",20,4)
+		TNT1 A 0 A_Print("Not enough stamina!", 1)
+		TNT1 A 0 A_PlaySound("Tired", 2)
+		Goto Ready
+		TNT1 AAA 0
+		TNT1 A 0 A_TakeInventory("Stamina", 20)
+		TNT1 A 0 A_Takeinventory("Zoomed",1)
+        TNT1 A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_Takeinventory("ADSmode",1)
+		NULL A 0 A_JumpIf (momZ > 0, "AirKick")
+		NULL A 0 A_JumpIf (momZ < 0, "AirKick")
+		NULL A 0 A_JumpIf (pitch > 32, "LowKickChecker1")
+		Goto InitializeNormalKick
+		
+		LowKickChecker1:
+		TNT1 A 0
+	    NULL A 0 A_JumpIf (pitch > 90, "InitializeNormalKick")
+		RIFF A 0 A_FireCustomMissile("KickAttackDetectDowned", 0, 0, 0, 0)
+		
+		InitializeNOrmalKick:
+        TNT1 A 0 A_jumpifinventory("PowerStrength",1,"BerserkerKick")
+		TNT1 A 0 A_PlaySound("KICK")
+		TNT1 A 0 SetPlayerProperty(0,1,0)
+		KICK BCD 1
+		RIFF A 0 A_FireCustomMissile("KickAttack", 0, 0, 0, -7)
+        KICK H 5
+		KICK A 0 A_Takeinventory("Kicking",1)
+		KICK I 1
+		KICK GFEDCBA 1 
+		TNT1 A 0 SetPlayerProperty(0,0,0)
+		Goto SelectAnimation
+    BerserkerKick:
+		TNT1 A 0 A_PlaySound("KICK")
+		TNT1 A 0 SetPlayerProperty(0,1,0)
+		KICK BCD 1
+        RIFF A 0 A_FireCustomMissile("SuperKickAttack", 0, 0, 0, -7)
+        KICK H 5
+		KICK A 0 A_Takeinventory("Kicking",1)
+		KICK I 1
+		KICK GFEDCBA 1 
+		TNT1 A 0 SetPlayerProperty(0,0,0)
+		Goto SelectAnimation
+	
+	AirKick:
+	    TNT1 A 0
+		TNT1 A 0 A_TakeInventory("Stamina", 20)
+	    TNT1 A 0 A_jumpifinventory("PowerStrength",1,"SuperAirKick")
+		TNT1 A 0 A_PlaySound("KICK")
+		TNT1 A 0 A_Recoil (-6)
+		KICK JKLMN 1
+        RIFF A 0 A_FireCustomMissile("AirKickAttack", 0, 0, 0, -31)
+        KICK O 3
+		KICK A 0 A_Takeinventory("Kicking",1)
+		KICK PQRST 2
+		Goto SelectAnimation
+		
+	SuperAirKick:
+		TNT1 A 0 A_PlaySound("KICK")
+		TNT1 A 0 A_Recoil (-6)
+		KICK JKLMN 1
+        RIFF A 0 A_FireCustomMissile("SuperAirKickAttack", 0, 0, 0, -31)
+        KICK O 3
+		KICK A 0 A_Takeinventory("Kicking",1)
+		KICK PQRST 2
+		Goto SelectAnimation		
+	}
+}

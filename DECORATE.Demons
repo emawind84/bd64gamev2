@@ -1,0 +1,350 @@
+actor 64Demon : Demon Replaces Demon
+{
+	+FLOORCLIP	
+	+FORCEXYBILLBOARD
+	DamageFactor "CauseWaterSplash", 0.0  DamageFactor "CauseObjectsToSplash", 0.0
+	Scale 0.9
+	GibHealth 20
+	Speed 12
+	damagefactor "chainsaw", 0.9
+	+NOBLOCKMONST
+	  Painchance "SuperFists", 200
+      Painchance "Kick", 255
+      Painchance "SuperKick", 255
+	states
+	{
+	Spawn:
+	SARG B 10 A_Look
+	loop
+	
+	See:
+	SARG AABBCCDD 2 A_Chase
+	SARG AABBCCDD 2 A_Chase
+	SARG AABBCCDD 2 A_Chase
+	SARG AABBCCDD 2 A_Chase
+	SARG AABBCCDD 2 A_Chase
+	SARG AABBCCDD 2 A_Chase
+	TNT1 A 0 A_JumpIfInTargetInventory("PowerInvisibility", 1, "Forget")
+	Loop
+	
+	Forget:
+    TNT1 A 0
+    TNT1 A 0 A_ClearTarget
+	Goto Spawn
+	
+	Melee:
+	SARG E 5 A_FaceTarget
+	TNT1 A 0 A_Recoil(-2)
+	SARG F 5 A_FaceTarget
+	TNT1 A 0 A_SargAttack
+	SARG G 5
+	Goto See
+	
+	Pain.Vertigo:
+	SARG H 0 ThrustThingZ (0, 55, 0, 0)
+	SARG H 2
+	SARG H 2 A_Pain
+	Goto See
+	
+	Pain:
+	SARG H 2
+	SARG H 2 A_Pain
+	Goto See
+	
+  	Crush:
+    	POL5 A 0
+    	POL5 A 0 A_PlaySound ("Misc/Gibbed")
+    	POL5 A -1
+    	Stop
+	
+	Death:
+		SARG I 8
+		SARG J 8 A_Scream
+		SARG K 4
+		SARG L 4 A_NoBlocking
+		SARG M 4
+		TNT1 A 0 A_CustomMissile ("GrowingBloodPool", 0, 0, random (0, 360), 2, random (0, 90))
+		SARG N -1
+		Stop
+	
+	Death.Shotgun:
+		TNT1 A 0
+		TNT1 A 0 ThrustThingZ(0,20,0,1)
+		TNT1 A 0 A_FaceTarget
+		TNT1 A 0 A_Recoil(8)
+		TNT1 A 0 A_Jump(64, "Death")
+		TNT1 A 0 A_JumpIfCloser(210, "Death.Heavy")
+		Goto Death		 
+  		 
+  Death.SSG:
+		TNT1 A 0
+		TNT1 A 0 A_FaceTarget
+		TNT1 A 0 A_Recoil(12)
+		TNT1 A 0 A_JumpIfCloser(170, "Death.SplatteredOnWall")
+		TNT1 A 0 ThrustThingZ(0,20,0,1)
+		TNT1 A 0 A_JumpIfCloser(210, "Death.Heavy")
+		Goto Death
+  
+  
+  Death.SplatteredOnWall:
+	     TNT1 AA 0 A_CustomMissile ("XDeath1", 32, 0, random (150, 210), 2, random (10, 50))
+		 TNT1 AA 0 A_CustomMissile ("XDeath2", 32, 0, random (150, 210), 2, random (10, 50))
+		 TNT1 AA 0 A_CustomMissile ("XDeath3", 32, 0, random (150, 210), 2, random (10, 50))
+		 TNT1 A 0 A_CustomMissile ("XDeath5", 32, 0, random (150, 210), 2, random (10, 50))
+		 TNT1 AAAA 0 A_CustomMissile ("SmallBrainPiece", 32, 0, random (150, 210), 2, random (10, 50))
+		 TNT1 AAAA 0 A_CustomMissile ("SmallBrainPiece", 32, 0, random (150, 210), 2, random (10, 50))
+		 TNT1 A 0 A_CustomMissile ("Brains3", 40, 0, random (150, 210), 2, random (10, 50))
+		 TNT1 AA 0 A_CustomMissile ("XDeathPinkyArm1", 50, 0, random (150, 210), 2, random (10, 50))
+		 TNT1 A 0 A_CustomMissile ("XDeathOrgan1", 40, 0, random (0, 360), 2, random (-5, 5))
+		 TNT1 A 0 A_CustomMissile ("XDeathOrgan2", 40, 0, random (0, 360), 2, random (-5, 5))
+		 TNT1 AAAA 0 A_CustomMissile ("Instestin", 32, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AAAAA 0 A_CustomMissile ("BloodmistBig", 45, 0, random (0, 360), 2, random (10, 90))
+		 TNT1 AAAAAA 0 A_CustomMissile ("Brutal_Blood", 35, 0, random (0, 360), 2, random (0, 90))
+		 //TNT1 AAAA 0 bright A_CustomMissile ("SuperGoreSpawner", 32, 0, random (0, 360), 2, random (50, 130))
+		
+		SRGD E 5
+		SRGD F 5 A_XScream
+		SRGD G 5
+		TNT1 A 0 A_CustomMissile ("BigBloodSpot", 0, 0, random (0, 360), 2, random (0, 90))
+		SRGD H 5 A_NoBlocking
+		TNT1 A 0 A_Stop
+		SRGD H -1
+		 Stop
+	
+	Death.Heavy:
+	Death.SuperFists:
+	     TNT1 A 0 A_CustomMissile ("XDeath1", 32, 0, random (150, 210), 2, random (10, 50))
+		 TNT1 A 0 A_CustomMissile ("XDeath2", 32, 0, random (150, 210), 2, random (10, 50))
+		 TNT1 A 0 A_CustomMissile ("XDeath3", 32, 0, random (150, 210), 2, random (10, 50))
+		 TNT1 AAA 0 A_CustomMissile ("SmallBrainPiece", 32, 0, random (150, 210), 2, random (10, 50))
+		 TNT1 AAA 0 A_CustomMissile ("SmallBrainPiece", 32, 0, random (150, 210), 2, random (10, 50))
+		 TNT1 A 0 A_CustomMissile ("Brains3", 40, 0, random (150, 210), 2, random (10, 50))
+		 //TNT1 A 0 A_CustomMissile ("XDeathPinkyArm1", 50, 0, random (150, 210), 2, random (10, 50))
+		TNT1 AAAAAAA 0 A_CustomMissile ("Brutal_Blood", 55, 0, random (0, 360), 2, random (0, 90))
+		SRGD A 5 A_CustomMissile ("Brutal_Blood", 48, 0, random (0, 360), 2, random (0, 90))
+		TNT1 AAA 0 A_CustomMissile ("BloodmistBig", 45, 0, random (0, 360), 2, random (10, 90))
+		SRGD B 5 
+		SRGD C 5 A_XScream
+		SRGD D 5 A_Stop
+		TNT1 A 0 A_CustomMissile ("GrowingBloodPool", 0, 0, random (0, 360), 2, random (0, 90))
+		SRGD D 5 A_NoBlocking
+		SRGD D -1
+		stop
+	
+	XDeath:
+	TNT1 AAAAAA 0 A_CustomMissile ("CeilBloodLauncher", 0, 0, random (0, 360), 2, random (50, 130))
+		 TNT1 AA 0 A_CustomMissile ("XDeath1", 32, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AA 0 A_CustomMissile ("XDeath2", 32, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AA 0 A_CustomMissile ("XDeath3", 32, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 A 0 A_CustomMissile ("XDeath5", 32, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AAAA 0 A_CustomMissile ("SmallBrainPiece", 32, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AAAA 0 A_CustomMissile ("SmallBrainPiece", 32, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 A 0 A_CustomMissile ("Brains3", 40, 0, random (0, 360), 2, random (-5, 5))
+		 TNT1 A 0 A_CustomMissile ("XDeathOrgan1", 40, 0, random (0, 360), 2, random (-5, 5))
+		 TNT1 A 0 A_CustomMissile ("XDeathOrgan2", 40, 0, random (0, 360), 2, random (-5, 5))
+		 TNT1 AAAA 0 A_CustomMissile ("Instestin", 32, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AAAAAAA 0 A_CustomMissile ("Bloodmist", 35, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AAAAAA 0 A_CustomMissile ("BloodmistExtraBig", 45, 0, random (0, 360), 2, random (10, 90))
+		 TNT1 AA 0 A_CustomMissile ("XDeathPinkyArm1", 50, 0, random (00, 360), 2, random (10, 50))
+		 TNT1 AA 0 A_CustomMissile ("XDeathPinkyleg1", 50, 0, random (00, 360), 2, random (10, 50))
+		 //TNT1 AAAA 0 bright A_CustomMissile ("SuperGoreSpawner", 32, 0, random (0, 360), 2, random (50, 130))
+        TNT1 A 0 A_XScream
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 ThrustThingZ (0, 40, 0, 0)
+		 GBM2 A 2 A_ChangeFlag("THRUACTORS", 1)
+		 GBM2 AAAAAAAAAAAAAAAAAAAAAAAAAA 2 A_CheckFloor("LANDAFTERXDEATH")
+		 Goto LandAfterXDeath
+	
+	LandAfterXDeath:
+		GBM2 B 1 A_Stop
+		TNT1 A 0 A_Jump(128, "LandAfterXDeath2")
+		TNT1 A 0 A_ChangeFlag("FORCEXYBILLBOARD", 1)
+		TNT1 A 0 A_SpawnItem("GrowingBloodPool")
+		GBM2 B -1
+		Stop
+	
+	LandAfterXDeath2:
+		GBM2 C 1
+		TNT1 A 0 A_ChangeFlag("FORCEXYBILLBOARD", 1)
+		TNT1 A 0 A_SpawnItem("GrowingBloodPool")
+		GBM2 C -1
+		Stop
+	
+	 Death.Chainsaw:
+	 Death.BFG:
+         SARX A 1
+	     TNT1 AAAAAA 0 A_CustomMissile ("CeilBloodLauncher", 0, 0, random (0, 360), 2, random (50, 130))
+		 TNT1 AA 0 A_CustomMissile ("XDeath1", 32, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AA 0 A_CustomMissile ("XDeath2", 32, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AA 0 A_CustomMissile ("XDeath3", 32, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 A 0 A_CustomMissile ("XDeath5", 32, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AAAA 0 A_CustomMissile ("SmallBrainPiece", 32, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AAAA 0 A_CustomMissile ("SmallBrainPiece", 32, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 A 0 A_CustomMissile ("Brains3", 40, 0, random (0, 360), 2, random (-5, 5))
+		 TNT1 A 0 A_CustomMissile ("XDeathOrgan1", 40, 0, random (0, 360), 2, random (-5, 5))
+		 TNT1 A 0 A_CustomMissile ("XDeathOrgan2", 40, 0, random (0, 360), 2, random (-5, 5))
+		 TNT1 AAAA 0 A_CustomMissile ("Instestin", 32, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AAAA 0 A_CustomMissile ("Bloodmist", 35, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AAAAAA 0 A_CustomMissile ("BloodmistBig", 45, 0, random (0, 360), 2, random (10, 90))
+		 TNT1 A 0 A_CustomMissile ("BigBloodSpot", 0, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 A 0 A_NoBlocking
+		 TNT1 A 0 A_XScream
+		 TNT1 A 0 A_Stop
+		 SARX ABCDEFGH 4
+		 SARX H -1
+		 Stop	
+	
+	Death.Plasma:
+		TNT1 A 0
+		TNT1 A 0 A_XScream
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_SpawnItem("MeltedHumanoidBig")
+		Stop
+	}
+}
+
+actor 64StealthDemon : 64Demon Replaces StealthDemon
+{
+	+STEALTH
+}
+
+actor 64Spectre : 64Demon Replaces Spectre
+{
+  Renderstyle Translucent
+  Alpha 0.5
+  states
+  {
+  Spawn:
+    TNT1 BD 10 A_Look
+    Goto Spawn+4
+  See:
+    TNT1 AA 2 A_Chase
+    TNT1 A 0 A_JumpIfCloser(800, "ChaseSee")
+	Loop
+  ChaseSee:
+	TNT1 A 1 A_Chase
+	TNT1 A 0 A_SpawnItem("SpectreSprite1")
+	TNT1 A 1 A_Chase
+	TNT1 A 0 A_SpawnItem("SpectreSprite2")
+	TNT1 A 1 A_Chase
+	TNT1 A 0 A_SpawnItem("SpectreSprite3")
+	TNT1 A 1 A_Chase
+	TNT1 A 0 A_SpawnItem("SpectreSprite4")
+	TNT1 A 1 A_Chase
+	TNT1 A 0 A_SpawnItem("SpectreSprite1")
+	TNT1 A 1 A_Chase
+	TNT1 A 0 A_SpawnItem("SpectreSprite2")
+	TNT1 A 1 A_Chase
+	TNT1 A 0 A_SpawnItem("SpectreSprite3")
+	TNT1 A 1 A_Chase
+	TNT1 A 0 A_SpawnItem("SpectreSprite4")
+	TNT1 A 1 A_Chase
+	
+	TNT1 AAAAA 2 A_Chase
+	Goto See
+  Melee:
+    SAR2 E 0 A_JumpIf (alpha == 0.25, 7)
+    SAR2 E 0 A_FadeTo (0.25, 0.33, false)
+    SAR2 E 8 A_FaceTarget
+    SAR2 F 0 A_FadeTo (0.25, 0.33, false)
+    SAR2 F 8 A_FaceTarget
+    SAR2 G 0 A_FadeTo (0.25, 0.33, false)
+    SAR2 G 8 A_SargAttack
+    goto See+12
+    SAR2 EF 8 A_FaceTarget
+    SAR2 G 8 A_SargAttack
+    Goto See+12
+  Pain:
+    SAR2 H 0 A_JumpIf (alpha == 0.25, 5)
+    SAR2 H 0 A_FadeTo (0.25, 0.50, false)
+    SAR2 H 2
+    SAR2 H 0 A_FadeTo (0.25, 0.50, false)
+    SAR2 H 2 A_Pain
+    goto See+12
+    SAR2 H 2
+    SAR2 H 2 A_Pain
+    Goto See+12
+  Pain.Vertigo:
+    SAR2 H 0 A_JumpIf (alpha == 0.25, 6)
+    SAR2 H 0 ThrustThingZ (0, 55, 0, 0)
+    SAR2 H 0 A_FadeTo (0.25, 0.50, false)
+    SAR2 H 2
+    SAR2 H 0 A_FadeTo (0.25, 0.50, false)
+    SAR2 H 2 A_Pain
+    goto See+12
+    SAR2 H 0 ThrustThingZ (0, 55, 0, 0)
+    SAR2 H 2
+    SAR2 H 2 A_Pain
+    Goto See+12
+  Death:
+    SAR2 I 8 A_FadeTo (1, 0.1667, false)
+    SAR2 J 0 A_FadeTo (1, 0.1667, false)
+    SAR2 J 8 A_Scream
+    SAR2 K 4 A_FadeTo (1, 0.1667, false)
+    SAR2 L 0 A_FadeTo (1, 0.1667, false)
+    SAR2 L 4 A_NoBlocking
+    SAR2 M 4 A_FadeTo (1, 0.1667, false)
+    SAR2 N -1
+    stop
+  Raise:
+    SAR2 NMLKJI 5 A_FadeTo (0.25, 0.1667, false)
+    goto See+12
+  Crush:
+    POL5 A 0
+    POL5 A 0 A_PlaySound ("Misc/Gibbed")
+    POL5 A -1
+    Stop
+  }
+}
+
+
+Actor SpectreSprite1
+{
++NOBLOCKMAP
++CLIENTSIDEONLY
+Renderstyle Translucent
+Alpha 0.2
+Scale 0.75
+States
+{
+	Spawn:
+		SAR2 AAAA 1 A_FadeIn(0.05)
+		SAR2 A 4
+		SAR2 AAAAAA 1 A_FadeOut(0.05)
+		Stop
+}}
+
+
+Actor SpectreSprite2: SpectreSprite1
+{
+States
+{
+	Spawn:
+		SAR2 BBBB 1 A_FadeIn(0.05)
+		SAR2 B 4
+		SAR2 BBBBBB 1 A_FadeOut(0.05)
+		Stop
+}}
+
+Actor SpectreSprite3: SpectreSprite1
+{
+States
+{
+	Spawn:
+		SAR2 CCCC 1 A_FadeIn(0.05)
+		SAR2 C 4
+		SAR2 CCCCC 1 A_FadeOut(0.05)
+		Stop
+}}
+
+
+Actor SpectreSprite4: SpectreSprite1
+{
+States
+{
+	Spawn:
+		SAR2 DDDD 1 A_FadeIn(0.05)
+		SAR2 D 4
+		SAR2 DDDDDD 1 A_FadeOut(0.05)
+		Stop
+}}

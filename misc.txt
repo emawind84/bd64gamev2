@@ -1,0 +1,32 @@
+actor 64RocketSmokeTrail : RocketSmokeTrail replaces RocketSmokeTrail
+{
+  Renderstyle Translucent
+  Alpha 0.5
+  VSpeed 0
+  scale 0.75
+  states
+  {
+  Spawn:
+    RSMK ABCDE 2 bright
+    stop
+  }
+}
+
+actor NCacoBall : CacodemonBall
+{
+  Renderstyle Translucent
+  scale 0.75
+  Alpha 0.6
+  states
+  {
+  Spawn:
+    NCAC ABC 4 bright
+    loop
+  Death:
+    NCAC D 5 bright
+    NCAC E 3 bright A_FadeOut (0.142857)
+    NCAC F 3 bright A_FadeOut (0.142857)
+    NCAC GHIJ 3 bright A_FadeOut (0.142857)
+    stop
+  }
+}

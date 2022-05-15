@@ -1,0 +1,231 @@
+
+
+actor 64BaronOfHell : BaronOfHell Replaces BaronOfHell
+{
+  missiletype BaronBall2
+//  bloodcolor "8C 39 10"
+  scale 0.9
+  Painchance "Provoke", 255
+  	+FLOORCLIP	
+	+FORCEXYBILLBOARD
+	Painchance "SuperFists", 200
+  Painchance "Kick", 255
+  Painchance "SuperKick", 255
+	DamageFactor "CauseWaterSplash", 0.0  DamageFactor "CauseObjectsToSplash", 0.0
+  states
+  {
+  Spawn:
+    BOSS A 5 A_Look
+	Loop
+	
+	
+  See:	
+    BOSs AABBCCDD 2 A_Chase
+	TNT1 A 0 A_JumpIfInTargetInventory("PowerInvisibility", 1, "Forget")
+	Loop
+	
+	Forget:
+    TNT1 A 0
+    TNT1 A 0 A_ClearTarget
+	Goto Spawn
+	
+  Missile:
+    TNT1 A 0 A_JumpIfInTargetInventory("IsDeadPLayer", 1, "See")
+    BOSS EF 8 A_FaceTarget
+    BOSS G 8 A_BasicAttack (10, "baron/melee", 64BaronBall, 32)
+    goto See
+  Melee:
+    TNT1 A 0 A_JumpIfInTargetInventory("IsDeadPLayer", 1, "Stomp")
+    BOSS EF 8 A_FaceTarget
+    BOSS G 8 A_BasicAttack (10, "baron/melee", 64BaronBall, 32)
+    goto See
+	
+  Pain.Provoke:
+    BOSS A 2
+	Goto See
+	
+  Pain.Vertigo:
+    BOSS H 0 ThrustThingZ (0, 55, 0, 0)
+    BOSS H 2
+    BOSS H 2 A_Pain
+    Goto See
+  Death:
+  	BOSS I 8
+	BOSS J 8 A_Scream
+	BOSS K 8
+	BOSS L 8 A_NoBlocking
+	BOSS M 8
+	BOSS N -1 A_BossDeath
+	stop
+  Raise:
+  	BOSS NMLKJI 8
+	goto See
+  Crush:
+    	POL5 A 0
+     	POL5 A 0 A_PlaySound ("Misc/Gibbed")
+   	POL5 A -1
+    	Stop
+		
+	Stomp:
+	   // BOSS A 1 A_FaceTarget
+		//BOSS ABCD 4 A_Recoil(-1)
+	    BRST AAAAAABBCD 3 A_faceTarget
+		BRST DDEF 3 A_FaceTarget
+		TNT1 A 0 A_BasicAttack (40, "None", 64BaronBall, 32)
+		BRST G 4
+		Goto See
+		
+Death.SSG:
+		BOSS H 1
+		TNT1 A 0 A_FaceTarget
+		TNT1 A 0 A_Recoil(12)
+		TNT1 A 0 A_JumpIfCloser(170, "XDeath")
+		BOSS H 1
+		TNT1 A 0 ThrustThingZ(0,10,0,1)
+		Goto Death	
+	XDeath:
+	     
+	     TNT1 AAAAAA 0 A_CustomMissile ("CeilBloodLauncher", 0, 0, random (0, 360), 2, random (50, 130))
+		 TNT1 AA 0 A_CustomMissile ("XDeath1", 52, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AA 0 A_CustomMissile ("XDeath2", 52, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AA 0 A_CustomMissile ("XDeath3", 52, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 A 0 A_CustomMissile ("XDeath5", 52, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 A 0 A_CustomMissile ("XDeathOrgan1", 50, 0, random (0, 360), 2, random (-5, 5))
+		 TNT1 A 0 A_CustomMissile ("XDeathOrgan2", 50, 0, random (0, 360), 2, random (-5, 5))
+		 TNT1 AAAA 0 A_CustomMissile ("Instestin", 52, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AAAA 0 A_CustomMissile ("Bloodmist", 55, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AAAAAA 0 A_CustomMissile ("BloodmistBig", 45, 0, random (0, 360), 2, random (10, 90))
+		 TNT1 A 0 A_CustomMissile ("BigBloodSpot", 0, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 A 0 A_CustomMissile ("XDeathBaronARm", 52, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 A 0 A_SpawnItem("XDeathBaronLegs")
+		 TNT1 A 0 ThrustThingZ (0, 50, 0, 0)
+		 TNT1 A 0 A_NoBlocking
+		 TNT1 A 0 A_Scream
+		 BGB1 A 2 A_ChangeFlag("THRUACTORS", 1)
+		 BGB1 AAAAAAAAAAAAAAAAAAAAAAAAAA 2 A_CheckFloor("LANDAFTERXDEATH")
+		 Goto LandAfterXDeath
+		 
+		 LandAfterXDeath:
+			BGB1 B 1 A_stop
+			TNT1 A 0 A_ChangeFlag("FORCEXYBILLBOARD", 1)
+			TNT1 A 0 A_SpawnItem("GrowingBloodPool")
+			BGB1 B -1
+			Stop
+			
+			
+		Death.Plasma:	
+	     TNT1 AAAA 0 A_CustomMissile ("XDeath1", 32, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AAAAAAA 0 A_CustomMissile ("BloodmistSmall", 35, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AAAAAAAAAAAAAA 0 A_CustomMissile ("ExplosionParticleHeavy", 30, 0, random (0, 360), 2, random (0, 180))
+        TNT1 AAAAAAAAAAAAAAAAAA 0 A_CustomMissile ("ExplosionParticleHeavy", 30, 0, random (0, 360), 2, random (0, 360))
+		TNT1 AAAAA 0 A_CustomMissile ("ExplosionParticleVeryFast", 30, 0, random (0, 360), 2, random (0, 360))
+        EXPL AA 0 A_CustomMissile ("CarbonizedSmoke1", 30, 0, random (0, 360), 2, random (10, 90))
+        TNT1 A 0 A_SpawnItemEx("BarrelExplosionSmokeColumn", random (-10, 10), random(-10, 10), 20)
+		TNT1 A 0 A_SpawnItem("BarrelExplosionSmokeColumn")
+		TNT1 A 0 A_spawnItemEx("BurningFleshEffect", 0, 0, 5)
+		TNT1 A 0 A_Scream
+		TNT1 A 0 A_NoBlocking
+		BOSB IJKLMN 6
+		TNT1 A 0 A_CustomMissile ("BigBloodSpot", 0, 0, random (0, 360), 2, random (0, 90))
+		BOSB N -1
+		STop
+  }
+}
+
+
+Actor XDeathBaronLegs
+{ 
+ +CLIENTSIDEONLY
+ +THRUACTORS
+ +NOBLOCKMAP
+ +FLOORCLIP
+ XScale -0.9
+ YScale 0.9
+ States
+ {
+	Spawn:
+	BGB3 ABC 4
+	BGB3 D -1
+	Stop
+	}
+}
+
+actor 64BaronBall : BaronBall
+{
+  renderstyle Add
+  scale 0.75
+  states
+  {
+  Spawn:
+    BAL2 A 1 BRIGHT A_SpawnItem("LensFlareProjectileOrange")
+	TNT1 AA 0 A_SpawnItem("BaronProjectileCore")
+    loop
+  Death:
+    TNT1 A 1
+	TNT1 AA 0 A_CustomMissile ("ExplosionParticleHeavy", 0, 0, random (0, 360), 2, random (0, 180))
+		TNT1 AAAA 0 A_CustomMissile ("ExplosionParticleFast", 0, 0, random (0, 360), 2, random (0, 180))
+        TNT1 AAAAA 0 A_CustomMissile ("ExplosionParticleHeavy", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 AAAAAA 0 A_CustomMissile ("SmallFireballFireTrail", 0, 0, random (0, 360), 2, random (0, 360))
+		BAL1 DEFGHIJ 1 BRIGHT A_SpawnItem("LensFlareTorchOrange",0,0)
+    stop
+  }
+}
+
+
+Actor BaronProjectileCore
+{ 
+ +CLIENTSIDEONLY
+ +THRUACTORS
+ +NOBLOCKMAP
+ +FLOORCLIP
+ Renderstyle Add
+ Scale 0.9
+ Alpha 0.9
+ States
+ {
+	Spawn:
+	BAL7 I 2 BRIGHT
+	Stop
+	}
+}
+
+
+
+actor 64BaronBallGreen : BaronBall Replaces BaronBall
+{
+  renderstyle Add
+  scale 0.75
+  states
+  {
+  Spawn:
+    BAL7 A 1 BRIGHT A_SpawnItem("LensFlareProjectileGreen")
+	TNT1 AA 0 A_SpawnItem("BaronGreenProjectileCore")
+    loop
+  Death:
+    TNT1 A 1
+		TNT1 AAA 0 A_CustomMissile ("ExplosionParticleGreenHeavySmall", 0, 0, random (0, 360), 2, random (10, 70))
+        TNT1 AAAAAAAAA 0 A_CustomMissile ("ExplosionParticleGreenHeavySmall", 0, 0, random (0, 360), 2, random (20, 50))
+		TNT1 AAAAA 0 A_CustomMissile ("ExplosionParticleGreenVeryFast", 0, 0, random (0, 360), 2, random (20, 40))
+		TNT1 AAAA 0 A_CustomMissile ("ExplosionParticleGreen", 0, 0, random (0, 360), 2, random (0, 360))
+		BAL1 DEFGHIJ 1 BRIGHT A_SpawnItem("LensFlareTorchGreen",0,0)
+    stop
+  }
+}
+
+
+Actor BaronGreenProjectileCore
+{ 
+ +CLIENTSIDEONLY
+ +THRUACTORS
+ +NOBLOCKMAP
+ +FLOORCLIP
+ Renderstyle Add
+ Scale 0.9
+ Alpha 0.9
+ States
+ {
+	Spawn:
+	BAL7 G 2 BRIGHT
+	Stop
+	}
+}

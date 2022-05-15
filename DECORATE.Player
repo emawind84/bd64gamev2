@@ -1,0 +1,439 @@
+ACTOR FootStep
+{
+    Radius 10
+    Height 10
+    Speed 7
+	Projectile
+	-NOGRAVITY
+	+MISSILE
+    +NOTELEPORT
+    +CLIENTSIDEONLY
+    +MOVEWITHSECTOR
+    +NOEXTREMEDEATH
+    Damage 0
+	+NODAMAGETHRUST
+	+BLOODLESSIMPACT 
+	+THRUACTORS
+	gravity 40
+	mass 1000
+	States
+		{
+		Spawn:
+			NULL A 2
+			NULL A 1 //A_Explode(10,4,0)
+			stop
+        Death:
+            NULL A 1
+			NULL A 1 //A_Explode(10,4,0)
+            Stop
+		Crash:
+			NULL A 1
+			NULL A 1 //A_Explode(10,4,0)
+			stop
+         }
+}
+
+
+Actor Footstep8: FootStep
+{
+    Damage (random (3, 3))
+	Mass 999
+    -CLIENTSIDEONLY
+}
+
+actor 64DoomPlayer : PlayerPawn Replaces DoomPlayer
+{
+	scale 0.8
+	Player.StartItem "Clip", 50
+	Player.StartItem "Shell", 4
+	Player.StartItem "Stamina", 100
+	Player.StartItem "64Pistol"
+	Player.StartItem "64Fist"
+	Speed 0.9 //Doom 64 has reduced player speed as far as I remember.
+	Health 100
+	Radius 16
+	Height 56
+	Player.ColorRange 112,127
+	player.viewheight	50
+    player.attackzoffset 23
+	Player.DisplayName "Classical"
+	Player.CrouchSprite "PLYC"
+	DamageFactor "CauseWaterSplash", 0.0 DamageFactor "CauseObjectsToSplash", 0.0
+	DamageFactor "Head", 0.0
+	Mass 100
+	PainChance 255
+	Species Marines
+	+THRUSPECIES
+	+MTHRUSPECIES
+	States
+	{
+	Spawn:
+		PLAY E 2
+		PLAY E 0 A_GiveInventory("Stamina", 1)
+		Loop
+	See:
+		PLAY AB 6 A_GiveInventory("Stamina", 1)
+		PLAY B 0 A_SpawnItemEx("FootStep8", 0, 0, 40, 0, 0)
+		PLAY CD 6 A_GiveInventory("Stamina", 1)
+		PLAY D 0 A_SpawnItemEx("FootStep8", 0, 0, 40, 0, 0)
+		Goto Spawn
+	//Missile:
+		//PLAY E 12
+		//Goto Spawn
+	//Melee:
+		//PLAY F 6 BRIGHT
+		//Goto Missile
+	Pain:
+		PLAY G 4
+		PLAY G 4 A_Pain
+		Goto Spawn
+	Death:
+		PLAY H 10
+		PLAY I 10 A_PlayerScream
+		PLAY J 10 A_NoBlocking
+		PLAY KLMMMM 10
+		PLAY M -1
+		Stop
+	XDeath:
+		PLAY O 8
+		PLAY P 5 A_XScream
+		TNT1 AA 0 A_CustomMissile ("XDeath1", 32, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AA 0 A_CustomMissile ("XDeath2", 32, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AA 0 A_CustomMissile ("XDeath3", 32, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 A 0 A_CustomMissile ("XDeath5", 32, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AAAA 0 A_CustomMissile ("SmallBrainPiece", 32, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AAAA 0 A_CustomMissile ("SmallBrainPiece", 32, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 A 0 A_CustomMissile ("Brains3", 40, 0, random (0, 360), 2, random (-5, 5))
+		 TNT1 AA 0 A_CustomMissile ("XDeathZombieArm1", 50, 0, random (0, 360), 2, random (20, 90))
+		 TNT1 AA 0 A_CustomMissile ("XDeathZombieLeg1", 50, 0, random (0, 360), 2, random (20, 90))
+		 TNT1 A 0 A_CustomMissile ("XDeathOrgan1", 40, 0, random (0, 360), 2, random (-5, 5))
+		 TNT1 A 0 A_CustomMissile ("XDeathOrgan2", 40, 0, random (0, 360), 2, random (-5, 5))
+		 TNT1 AAAA 0 A_CustomMissile ("Instestin", 32, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AAAA 0 A_CustomMissile ("Bloodmist", 35, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 A 0 A_CustomMissile ("BigBloodSpot", 0, 0, random (0, 360), 2, random (0, 90))
+		PLAY Q 5 A_NoBlocking
+		PLAY RSTUV 5
+		PLAY W -1
+		Stop
+	}
+}
+
+Actor IsDeadPLayer : Inventory
+{
+inventory.maxamount 1
+}
+
+
+Actor IsTacticalClass : Inventory
+{
+inventory.maxamount 1
+}
+
+Actor Reloading : Inventory
+{
+inventory.maxamount 1
+}
+
+
+actor MakeEnemiesAttackPlayerBody
+{
+MONSTER
++FRIENDLY
++LOOKALLAROUND
++SHOOTABLE
+Health 30
+Radius 5
+Height 5
++THRUACTORS
+States
+{
+Spawn:
+TNT1 A 10
+TNT1 A 0 A_GiveInventory("IsDeadPLayer", 1)
+TNT1 AAAA 1 A_CustomMissile("KillMe")
+TNT1 A 1
+TNT1 A -1
+Stop
+
+Death:
+TNT1 A 1
+TNT1 AA 0 A_CustomMissile ("XDeath1", 52, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AA 0 A_CustomMissile ("XDeath2", 52, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AA 0 A_CustomMissile ("XDeath3", 52, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 A 0 A_CustomMissile ("XDeath5", 52, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 A 0 A_CustomMissile ("XDeathOrgan1", 50, 0, random (0, 360), 2, random (-5, 5))
+		 TNT1 A 0 A_CustomMissile ("XDeathOrgan2", 50, 0, random (0, 360), 2, random (-5, 5))
+		 TNT1 AAAA 0 A_CustomMissile ("Instestin", 52, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AAAA 0 A_CustomMissile ("Bloodmist", 55, 0, random (0, 360), 2, random (0, 90))
+		 TNT1 AAAAAA 0 A_CustomMissile ("BloodmistBig", 45, 0, random (0, 360), 2, random (10, 90))
+		 TNT1 A 0 A_CustomMissile ("BigBloodSpot", 0, 0, random (0, 360), 2, random (0, 90))
+TNT1 A 1 A_NoBlocking
+Stop
+}
+}
+
+
+actor KillMe
+{
+	+NOTARGET
+Radius 10
+Height 10
+DamageType Provoke
++NOGRAVITY
++NOTELEPORT
++NODAMAGETHRUST
++THRUGHOST
++NORADIUSDMG
++NOEXTREMEDEATH
++FORCERADIUSDMG
+-BLOODSPLATTER
++BLOODLESSIMPACT 
+PROJECTILE
+	+DEHEXPLOSION
+	+ACTIVATEMCROSS
+States
+{
+Spawn:
+TNT1 A 0
+        TNT1 A 0 A_Explode(3,500)
+Stop
+ }
+}
+
+actor 64ScriptedMarine : ScriptedMarine Replaces ScriptedMarine
+{
+//	scale 0.75
+}
+
+actor 64MarineBFG : MarineBFG Replaces MarineBFG
+{
+//	scale 0.75
+}
+
+actor 64MarineBerserk : MarineBerserk Replaces MarineBerserk
+{
+//	scale 0.75
+}
+
+actor 64MarineChaingun : MarineChaingun Replaces MarineChaingun
+{
+//	scale 0.75
+}
+
+actor 64MarineChainsaw : MarineChainsaw Replaces MarineChainsaw
+{
+//	scale 0.75
+}
+
+actor 64MarineFist : MarineFist Replaces MarineFist
+{
+//	scale 0.75
+}
+
+actor 64MarinePistol : MarinePistol Replaces MarinePistol
+{
+//	scale 0.75
+}
+
+actor 64MarinePlasma : MarinePlasma Replaces MarinePlasma
+{
+//	scale 0.75
+}
+
+actor 64MarineRailgun : MarineRailgun Replaces MarineRailgun
+{
+//	scale 0.75
+}
+
+actor 64MarineRocket : MarineRocket Replaces MarineRocket
+{
+//	scale 0.75
+}
+
+actor 64MarineSSG : MarineSSG Replaces MarineSSG
+{
+//	scale 0.75
+}
+
+actor 64MarineShotgun : MarineShotgun Replaces MarineShotgun
+{
+//	scale 0.75
+}
+
+actor 64MarineUnmaker : ScriptedMarine 9940
+{
+//scale 0.75
+  Game Doom
+  States
+  {
+  Missile:
+    PLAY E 7 A_FaceTarget
+    PLAY F 3 BRIGHT A_CustomMissile ("UnmakerLaser", 28, 0, 0)
+    PLAY A 0 A_M_Refire
+    Loop
+    PLAY A 0
+    Goto See
+  }
+}
+
+
+actor 64MarineUnmaker1 : ScriptedMarine 9941
+{
+//	scale 0.75
+	game Doom
+	States
+	{
+	Missile:
+		PLAY E 3 A_FaceTarget
+		PLAY F 3 BRIGHT A_CustomMissile ("UnmakerLaser", 28, 0, 0)
+		PLAY A 0 A_M_Refire
+		Loop
+		PLAY A 0
+		Goto See
+	}
+}
+
+
+actor 64MarineUnmaker2 : ScriptedMarine 9942
+{
+//	scale 0.75
+	game Doom
+	States
+	{
+	Missile:
+		PLAY E 3 A_FaceTarget
+		PLAY F 0 BRIGHT A_CustomMissile ("UnmakerLaser", 28, 0, -1.5)
+		PLAY F 3 BRIGHT A_CustomMissile ("UnmakerLaser", 28, 0, 1.5)
+		PLAY A 0 A_M_Refire
+		Loop
+		PLAY A 0
+		Goto See
+	}
+}
+
+actor 64MarineUnmaker3 : ScriptedMarine 9943
+{
+//	scale 0.75
+	game Doom
+	States
+	{
+	Missile:
+		PLAY E 3 A_FaceTarget
+		PLAY F 0 BRIGHT A_CustomMissile ("UnmakerLaser", 28, 0, -4.5)
+		PLAY F 0 BRIGHT A_CustomMissile ("UnmakerLaser", 28, 0, 4.5)
+		PLAY F 3 BRIGHT A_CustomMissile ("UnmakerLaser", 28, 0, 0)
+		PLAY A 3 A_M_Refire
+		PLAY F 0 BRIGHT A_CustomMissile ("UnmakerLaser", 28, 0, -6.0)
+		PLAY F 0 BRIGHT A_CustomMissile ("UnmakerLaser", 28, 0, 6.0)
+		PLAY F 3 BRIGHT A_CustomMissile ("UnmakerLaser", 28, 0, 0)
+		PLAY A 3 A_M_Refire
+		PLAY F 0 BRIGHT A_CustomMissile ("UnmakerLaser", 28, 0, -7.5)
+		PLAY F 0 BRIGHT A_CustomMissile ("UnmakerLaser", 28, 0, 7.5)
+		PLAY F 3 BRIGHT A_CustomMissile ("UnmakerLaser", 28, 0, 0)
+		PLAY A 3 A_M_Refire
+		PLAY F 0 BRIGHT A_CustomMissile ("UnmakerLaser", 28, 0, -9.0)
+		PLAY F 0 BRIGHT A_CustomMissile ("UnmakerLaser", 28, 0, 9.0)
+		PLAY F 3 BRIGHT A_CustomMissile ("UnmakerLaser", 28, 0, 0)
+		PLAY A 0 A_M_Refire
+		Loop
+		PLAY A 0
+		Goto See
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+actor Tactical64DoomPlayer : 64DoomPlayer
+{
+	Player.StartItem "Clip", 30
+	Player.StartItem "RifleAmmo", 30
+	Player.StartItem "Stamina", 100
+	Player.StartItem "IsTacticalClass", 1
+	Player.StartItem "64RifleTactical"
+	Player.StartItem "64Fist"
+	Player.StartItem "Shell", 4
+	Player.DisplayName "Tactical"
+	
+	Speed 1.0 
+	Player.Runhealth 500
+	States
+	{
+	Spawn:
+		PLAY E 2
+		PLAY E 0 A_GiveInventory("Stamina", 1)
+		Loop
+	See:
+		PLAY A 1
+		PLAY A 0 A_JumpIfInventory("IsRunning", 1, "StartRun")
+		PLAY A 0 ACS_ExecuteAlways(853, 0, 0, 0, 0)//Makes player slower.
+		PLAY A 5 A_GiveInventory("Stamina", 1)
+		PLAY A 0 A_JumpIfInventory("IsRunning", 1, "StartRun")
+		PLAY B 5 A_GiveInventory("Stamina", 1)
+		PLAY B 0 A_JumpIfInventory("IsRunning", 1, "StartRun")
+		PLAY B 0 A_SpawnItemEx("FootStep8", 0, 0, 40, 0, 0)
+		PLAY B 0 A_JumpIfInventory("IsRunning", 1, "StartRun")
+		PLAY C 5 A_GiveInventory("Stamina", 1)
+		PLAY C 0 A_JumpIfInventory("IsRunning", 1, "StartRun")
+		PLAY D 5 A_GiveInventory("Stamina", 1)
+		PLAY D 0 A_JumpIfInventory("IsRunning", 1, "StartRun")
+		PLAY D 0 A_SpawnItemEx("FootStep8", 0, 0, 40, 0, 0)
+		Goto Spawn
+		
+	StartRun:
+	    PLAY A 1
+	    TNT1 A 0 A_JumpIfInventory("Stamina", 15, "Run")
+		PLAY A 0 ACS_ExecuteAlways(853, 0, 0, 0, 0)//Makes player slower.
+		TNT1 A 0 A_PlaySound("Tired", 2)
+		PLAY ABCD 5
+		TNT1 A 0 A_SpawnItemEx("FootStep8", 0, 0, 40, 0, 0)
+		Goto Spawn
+	Run:
+		PLAY A 1
+		TNT1 A 0 A_JumpIfInventory("Stamina", 2, "KeepRunning")
+		TNT1 A 0 A_PlaySound("Tired", 2)
+		PLAY A 0 ACS_ExecuteAlways(853, 0, 0, 0, 0)//Makes player slower.
+		PLAY ABCD 5
+		Goto See+2
+	KeepRunning:
+	    PLAY A 1
+		TNT1 A 0 A_TakeInventory("Stamina", 11)
+		PLAY A 0 ACS_ExecuteAlways(852, 0, 0, 0, 0)//Makes player faster.
+		PLAY AAAA 1 A_SetPitch(+0.4 + pitch)
+		PLAY BBBB 1 A_SetPitch(-0.4 + pitch)
+		PLAY B 4
+		TNT1 A 0 A_SpawnItemEx("FootStep8", 0, 0, 40, 0, 0)
+		//NT1 A 0 A_JumpIfInventory("IsRunning", 1, 1)
+		//Goto See
+		PLAY CCCC 1 A_SetPitch(-0.4 + pitch)
+		PLAY DDDD 1 A_SetPitch(+0.4 + pitch)
+		PLAY D 2
+		TNT1 A 0 A_SpawnItemEx("FootStep8", 0, 0, 40, 0, 0)
+		TNT1 A 0 A_JumpIfInventory("IsRunning", 1, "Run")
+		Goto Spawn+2
+	
+	Pain:
+		PLAY G 4
+		PLAY G 4 A_Pain
+		Goto Spawn
+	}
+}

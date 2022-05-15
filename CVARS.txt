@@ -1,0 +1,141 @@
+#include "zcommon.acs"
+#library "CVARS"
+
+script 166 enter
+{
+    TakeInventory("PowerInvisibility", 1);
+}
+
+script 301 (VOID) NET
+{
+ GiveInventory("Kicking", 1);
+}
+
+Script 303 (VOID) NET
+{
+ GiveInventory("Reloading", 1);
+}
+
+
+
+Script 119 (VOID)
+{
+if	(GameType () == GAME_NET_DEATHMATCH) 
+	GiveInventory("IsDM", 1);
+}
+
+Script 799 (VOID)
+{
+
+if
+	(GetCvar("isrunningzandronum") == 1)
+{
+if	(GetCvar("bd_bloodamount") == 0) { SetActorState(0,"LowBlood"); }
+if	(GetCvar("bd_bloodamount") == 1) { SetActorState(0,"LowBlood"); }
+if	(GetCvar("bd_bloodamount") == 3) { SetActorState(0,"LotsOfBlood"); }
+if	(GetCvar("bd_bloodamount") >= 4) { SetActorState(0,"AbsurdBlood"); }
+}
+
+
+if
+	(GetCvar("isrunningzandronum") == 0)
+{
+if	(GetCvar("zdoombrutalblood") == 0) { SetActorState(0,"LowBlood"); }
+if	(GetCvar("zdoombrutalblood") == 1) { SetActorState(0,"LowBlood"); }
+if	(GetCvar("zdoombrutalblood") == 3) { SetActorState(0,"LotsOfBlood"); }
+if	(GetCvar("zdoombrutalblood") >= 4) { SetActorState(0,"AbsurdBlood"); }
+}
+
+
+if
+	(GetCvar("isrunningzandronum") == 1)
+{
+if	(GetCvar("bd_bloodamount") == 666)
+	{
+	SetActorState(0,"AbsurdBlood"); 
+	GiveInventory("AnimuGore", 1);
+	}
+}
+
+if
+	(GetCvar("isrunningzandronum") == 0)
+{
+if	(GetCvar("zdoombrutalblood") == 666)
+	{
+	SetActorState(0,"AbsurdBlood"); 
+	GiveInventory("AnimuGore", 1);
+	}
+}
+
+
+}
+
+Script 798 (VOID)
+{
+if	(GetCvar("bd_lowgraphicsmode") == 1) { GiveInventory("LowGraphicsMode", 1); }
+if	(GetCvar("zdoombrutaljanitor") == 1) { GiveInventory("LowGraphicsMode", 1); }
+}
+
+
+Script 797 (VOID)
+{
+if	(GetCvar("bd_bloodamount") == 1) { SetActorState(0,"Vanish"); }
+if	(GetCvar("bd_bloodamount") == 0) { SetActorState(0,"Vanish"); }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//SPRINTING
+
+
+script 822 OPEN
+{
+ConsoleCommand("compat_clientssendfullbuttoninfo 1");
+}
+
+
+script 851 ENTER
+{
+ int buttons;
+
+ while (TRUE)
+ {
+   buttons = GetPlayerInput(-1, INPUT_BUTTONS);
+   
+if (buttons & BT_SPEED)
+{
+   GiveInventory("IsRunning", 1);
+   delay(1);
+}
+   delay(1);
+   TakeInventory("IsRunning", 1);
+ }
+}
+
+
+
+script 852 (void)
+{
+        SetActorProperty (0, APROP_Speed, 2.0);
+		delay (1);
+}
+
+script 853 (void)
+{
+        SetActorProperty (0, APROP_Speed, 1.0);
+		delay (1);
+}
