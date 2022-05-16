@@ -38,7 +38,7 @@ Skill Nightmare
 	SpawnFilter = Hard
 	DamageFactor = 2.0
 	MonsterHealth = 0.75
-	FastMonsters 1
+	FastMonsters
 	disablecheats
 	Name = "Hardcore!"
 	mustconfirm = "Faster monsters, you take double damage, enemies takes 25% more damage. Equivalent of regular Brutal Doom's 'Black Metal' difficulty. Only for hardcore players. Press Y or N"
