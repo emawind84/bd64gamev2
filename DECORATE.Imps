@@ -214,7 +214,7 @@ actor 64DoomImp : DoomImp //Replaces DoomImp
 
 
 
-ACTOR 64ImpBall Replaces DoomImpBall
+ACTOR 64ImpBall //Replaces DoomImpBall
 {
 	Radius 2
 	Height 2

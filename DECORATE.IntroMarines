@@ -1,5 +1,5 @@
 
-actor IntroMarine : ZombieMan //Replaces MarinePistol 9104
+actor IntroMarine : ZombieMan 9104 //Replaces MarinePistol
 {
   +FLOORCLIP
   DamageFactor "CauseWaterSplash", 0.0  DamageFactor "CauseObjectsToSplash", 0.0
